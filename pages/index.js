@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import CalendarDate from '../components/calendar-date'
+import Calendar from '../components/calendar'
 import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Home() {
@@ -10,9 +11,17 @@ export default function Home() {
 
   if (loading) return <div>loading...</div>;
 
+  
+  var rend = '<div>This is somethings</div>'
   return (
     <div>
-      <CalendarDate date="3"></CalendarDate>
+      <div className="table w-full">
+        <div className="table-row-group">
+          <Calendar/>
+        </div>
+      </div>
+      
+      
       {!session && (
         <>
           <button onClick={() => signIn('google')}>Sign in</button>
