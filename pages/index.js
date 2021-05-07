@@ -15,7 +15,7 @@ export default function Home() {
   var rend = '<div>This is somethings</div>'
   return (
     <div>
-      <div className="table w-full">
+      <div className="table mx-auto">
         <div className="table-row-group">
           <Calendar/>
         </div>
