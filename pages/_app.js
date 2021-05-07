@@ -1,10 +1,11 @@
 import { Provider } from 'next-auth/client'
 import '../styles/globals.css'
-// import 'tailwindcss/tailwind.css'
+import Navbar from '../components/navbar'
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider session={pageProps.session}>
+      <Navbar/>
       <Component {...pageProps} />
     </Provider>
   )
