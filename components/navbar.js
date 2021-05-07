@@ -1,8 +1,8 @@
-import React from 'react'
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Navbar() {
 
-  // const node = ReactDOM.findDOMNode(this);
+  const [session, loading] = useSession();
 
   function hideNavbar() {
     const mobileMenu = document.querySelector('.mobile-menu')
@@ -32,13 +32,29 @@ export default function Navbar() {
             </div>
             
           </div>
-          <div className="hidden md:flex items-center space-x-1">
-            <a href="#" className="px-2 py-5 text-gray-700 hover:text-gray-900">Login</a>
-            <a href="#" className="px-2 py-3 text-gray-700 hover:text-gray-900
-                                    text-yellow-900 hover:text-yellow:700
-                                    bg-yellow-400 hover:bg-yellow-300 rounded
-                                    transition duration-300">Signup</a>
-          </div>
+
+          {!session && (
+            <>
+              <div className="hidden md:flex items-center space-x-1">
+                <a href="#" onClick={() => signIn('google')} className="px-2 py-5 text-gray-700 hover:text-gray-900">Log In</a>
+                <a href="#" onClick={() => signIn('google')} className="px-2 py-3 text-gray-700 hover:text-gray-900
+                                        text-yellow-900 hover:text-yellow:700
+                                        bg-yellow-400 hover:bg-yellow-300 rounded
+                                        transition duration-300">Sign up</a>
+              </div>
+            </>
+          )}
+
+          {session && (
+            <>
+              <div className="hidden md:flex items-center space-x-1">
+                <a href="#" onClick={() => signOut()} className="px-2 py-5 text-gray-700 hover:text-gray-900">Log Out</a>
+              </div>
+            </>
+          )}
+
+          
+
 
           {/* mobile button */}
           <div className="md:hidden flex items-center">
