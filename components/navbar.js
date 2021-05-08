@@ -33,7 +33,7 @@ export default function Navbar() {
             
           </div>
 
-          {!session && (
+          {!loading && !session && (
             <>
               <div className="hidden md:flex items-center space-x-1">
                 <a href="#" onClick={() => signIn('google')} className="px-2 py-5 text-gray-700 hover:text-gray-900">Log In</a>
@@ -45,7 +45,7 @@ export default function Navbar() {
             </>
           )}
 
-          {session && (
+          {!loading && session && (
             <>
               <div className="hidden md:flex items-center space-x-1">
                 <a href="#" onClick={() => signOut()} className="px-2 py-5 text-gray-700 hover:text-gray-900">Log Out</a>
