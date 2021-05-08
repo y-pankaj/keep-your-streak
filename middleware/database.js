@@ -1,9 +1,9 @@
-import { MongoClient } from 'mongodb';
-import nextConnect from 'next-connect';
+import { MongoClient } from "mongodb";
+import nextConnect from "next-connect";
 
-import dotenv from 'dotenv'
-dotenv.config()
-const client = new MongoClient( process.env.MONGODB_URI , {
+import dotenv from "dotenv";
+dotenv.config();
+const client = new MongoClient(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
