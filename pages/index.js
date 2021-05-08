@@ -14,7 +14,7 @@ export default function Home() {
   
   var rend = '<div>This is somethings</div>'
   return (
-    <div>
+    <div className="p-5">
       <div className="table mx-auto">
         <div className="table-row-group">
           <Calendar/>
@@ -22,13 +22,13 @@ export default function Home() {
       </div>
       
       
-      {!session && (
+      {!loading && !session && (
         <>
           <button onClick={() => signIn('google')}>Sign in</button>
         </>
       )}
 
-      {session && (
+      {!loading && session && (
         <>
           <img src={session.user.image} className="avatar" />
           <h1>{session.user.name}</h1>
