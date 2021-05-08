@@ -4,6 +4,7 @@ export default function Calendar(props) {
 
   var date = new Date(2000, 3 );
   console.log(date);
+  var todayDate = date.getDate();
   console.log(date.getFullYear());
   var year = date.getFullYear();
   var month = date.getMonth();
@@ -29,7 +30,8 @@ export default function Calendar(props) {
   for(var i = 0; i < totalDivsInCalendar; i++){
     var calendarRow = []
     for(var j = 0; j < 7; j ++) {
-      calendarRow.push(<CalendarDate date={getDateForCalendar( 7*i + j + 1)}/>)
+      calendarRow.push(<CalendarDate date={getDateForCalendar( 7*i + j + 1)}
+                          today={todayDate}/>)
     }
     calendar.push(<div className="table-row">{calendarRow}</div>)
   }
