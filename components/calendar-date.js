@@ -1,9 +1,10 @@
 export default function CalendarDate(props) {
   return (
-    <div className={`table-cell h-32 w-32 ${props.date==="0"?"bg-transparent":"bg-yellow-400"} 
-                      rounded-md border-4`}>
+    <div className={`table-cell h-32 w-32 rounded-md border-4
+                      ${props.date===null? 'bg-yellow-200': 'bg-yellow-400'} 
+                      `}>
       <h1>
-        {props.date==="0"? null:props.date}
+        {props.date}
       </h1>
     </div>
   )
