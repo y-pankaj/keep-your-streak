@@ -1,4 +1,5 @@
 import React from "react";
+import Todo from "./todo/todo";
 
 export default function DateTasks() {
   return (
@@ -23,7 +24,9 @@ export default function DateTasks() {
           Habits
         </div>
       </div>
-      <div>Cotent</div>
+      <div>
+        <Todo />
+      </div>
     </div>
   );
 }

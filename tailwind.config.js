@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       backgroundColor: ["focus"],
       borderRadius: ["focus"],
+      borderColor: ["hover"],
     },
   },
   plugins: [],
