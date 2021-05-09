@@ -15,9 +15,7 @@ export default function Home() {
   return (
     <div className="p-5">
       <div className="table mx-auto">
-        <div className="table-row-group">
-          <Calendar />
-        </div>
+        <div className="table-row-group">{/* <Calendar /> */}</div>
       </div>
 
       {/* {!loading && !session && (
