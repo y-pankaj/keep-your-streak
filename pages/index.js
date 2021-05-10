@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import CalendarDate from "../components/calendar-date";
 import Calendar from "../components/calendar";
-import DateTasks from "../components/date-tasks";
+import DateInfo from "../components/date-info";
 import { signIn, signOut, useSession } from "next-auth/client";
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
         </>
       )} */}
 
-      <DateTasks />
+      <DateInfo />
     </div>
   );
 }
