@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "dotenv": "^8.2.0",
     "mongodb": "^3.6.6",
     "next": "10.1.3",
