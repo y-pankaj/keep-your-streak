@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TodoDisplayField() {
   return (
-    <div className="flex justify-between py-2 px-4 my-1 border-t-2 border-b-2 border-transparent hover:border-gray-600">
+    <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
       <div className="space-x-4 flex items-end">
         <div className="">
           <input type="checkbox" value="Bike" className="h-4 w-4" />
