@@ -1,6 +1,19 @@
 import React from "react";
+import ObjectID from "bson-objectid";
+export default function TodoInputField(props) {
+  function handleEnterKey(e) {
+    var keyCode = e.code || e.key;
+    if (keyCode == "Enter") {
+      const newObjectId = new ObjectID();
+      props.setTodoList([
+        ...props.todoList,
+        { _id: newObjectId, task: e.target.value, done: false },
+      ]);
+      e.target.value = "";
+      console.log(props.todoList);
+    }
+  }
 
-export default function TodoInputField() {
   return (
     <div className="flex justify-between items-center px-3 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
       <span className="pr-3">
@@ -20,6 +33,7 @@ export default function TodoInputField() {
         </svg>
       </span>
       <input
+        onKeyPress={handleEnterKey}
         type="text"
         placeholder="Add item"
         className="w-full h-11 bg-transparent placeholder-gray-600 outline-none text-lg"

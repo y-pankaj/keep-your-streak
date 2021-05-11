@@ -23,7 +23,7 @@ export default function Navbar() {
                 className="flex items-center px-2 py-5 text-gray-700 hover:text-gray-900"
               >
                 <svg
-                  class="w-6 h-6 mr-2 text-blue-400"
+                  className="w-6 h-6 mr-2 text-blue-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button className="mobile-menu-button" onClick={hideNavbar}>
               <svg
-                class="w-6 h-6 mobile-menu-open"
+                className="w-6 h-6 mobile-menu-open"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -114,7 +114,7 @@ export default function Navbar() {
               </svg>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 hidden mobile-menu-close"
+                className="h-6 w-6 hidden mobile-menu-close"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

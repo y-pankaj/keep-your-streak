@@ -1,6 +1,17 @@
 import React from "react";
 
-export default function TodoDisplayField() {
+export default function TodoDisplayField(props) {
+  function handleClick() {
+    console.log(props.todo._id);
+    props.setTodoList(
+      props.todoList.filter((currentTodo) => currentTodo._id !== props.todo._id)
+    );
+    // var temp = props.todoList.filter(
+    //   (currentTodo) => currentTodo._id !== props.todo._id
+    // );
+    // console.log(temp);
+    // console.log(props.todo);
+  }
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
       <div className="space-x-4 flex items-end">
@@ -8,12 +19,15 @@ export default function TodoDisplayField() {
           <input type="checkbox" value="Bike" className="h-4 w-4" />
         </div>
 
-        <span className="text-lg">This is some random info written here</span>
+        <span className="text-lg">{props.todo.task}</span>
       </div>
-      <button className="w-6 h-6 hover:bg-gray-300 rounded-full">
+      <button
+        className="w-6 h-6 hover:bg-gray-300 rounded-full"
+        onClick={handleClick}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
+          className="h-6 w-6"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
