@@ -17,6 +17,7 @@ export default function Todo() {
     <div>
       {todoList.map((todo) => (
         <TodoDisplayField
+          key={todo._id}
           todo={todo}
           setTodoList={setTodoList}
           todoList={todoList}

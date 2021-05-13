@@ -1,7 +1,11 @@
 export default function CalendarDate(props) {
+  function setDate() {
+    props.setDate(props.date);
+  }
+
   return (
     <div
-      onClick={props.setDate(props.date)}
+      onClick={setDate}
       className={`table-cell h-32 w-32 rounded-md border-4
                       ${
                         props.date === null

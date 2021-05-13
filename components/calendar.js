@@ -32,15 +32,21 @@ export default function Calendar(props) {
   for (var i = 0; i < totalDivsInCalendar; i++) {
     var calendarRow = [];
     for (var j = 0; j < 7; j++) {
+      var key = 7 * i + j + 1;
       calendarRow.push(
         <CalendarDate
+          key={key}
           setDate={props.setDate}
           date={getDateForCalendar(7 * i + j + 1)}
           today={todayDate}
         />
       );
     }
-    calendar.push(<div className="table-row">{calendarRow}</div>);
+    calendar.push(
+      <div className="table-row" key={i}>
+        {calendarRow}
+      </div>
+    );
   }
 
   return <div>{calendar}</div>;
