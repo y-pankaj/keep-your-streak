@@ -34,6 +34,7 @@ export default function Calendar(props) {
     for (var j = 0; j < 7; j++) {
       calendarRow.push(
         <CalendarDate
+          setDate={setDate}
           date={getDateForCalendar(7 * i + j + 1)}
           today={todayDate}
         />

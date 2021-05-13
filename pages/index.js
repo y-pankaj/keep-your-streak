@@ -9,16 +9,20 @@ import { signIn, signOut, useSession } from "next-auth/client";
 export default function Home() {
   const [session, loading] = useSession();
 
+  const [date, setDate] = useState("");
+
   if (loading) return <div>loading...</div>;
 
-  var rend = "<div>This is somethings</div>";
   return (
-    <div className="p-5">
-      <div className="table mx-auto">
-        <div className="table-row-group">{/* <Calendar /> */}</div>
-      </div>
+    <>
+      <div className="absolute z-0 m-auto h-full w-full py-14">
+        <div className="table mx-auto">
+          <div className="table-row-group">
+            <Calendar setDate={setDate} />
+          </div>
+        </div>
 
-      {/* {!loading && !session && (
+        {/* {!loading && !session && (
         <>
           <button onClick={() => signIn('google')}>Sign in</button>
         </>
@@ -32,8 +36,10 @@ export default function Home() {
           <button onClick={() => signOut()}>Sign out</button>
         </>
       )} */}
-
-      <DateInfo />
-    </div>
+      </div>
+      <div className="absolute py-16 w-full h-full bg-opacity-50 bg-gray-100">
+        <DateInfo date={date} />
+      </div>
+    </>
   );
 }

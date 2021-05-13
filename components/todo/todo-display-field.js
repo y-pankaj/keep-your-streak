@@ -6,11 +6,6 @@ export default function TodoDisplayField(props) {
     props.setTodoList(
       props.todoList.filter((currentTodo) => currentTodo._id !== props.todo._id)
     );
-    // var temp = props.todoList.filter(
-    //   (currentTodo) => currentTodo._id !== props.todo._id
-    // );
-    // console.log(temp);
-    // console.log(props.todo);
   }
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">

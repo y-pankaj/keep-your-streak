@@ -11,6 +11,8 @@ export default function Todo() {
     },
   ]);
 
+  // write logic for getting date from Mongo using Date prop
+
   return (
     <div>
       {todoList.map((todo) => (
