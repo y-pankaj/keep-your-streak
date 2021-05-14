@@ -10,7 +10,6 @@ export default function TodoInputField(props) {
         { _id: newObjectId, task: e.target.value, done: false },
       ]);
       e.target.value = "";
-      console.log(props.todoList);
     }
   }
 

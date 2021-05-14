@@ -25,7 +25,7 @@ export default function DateInfo(props) {
         </div>
       </div>
       <div>
-        <Todo />
+        <Todo todoList={props.todoList} setTodoList={props.setTodoList} />
       </div>
     </div>
   );

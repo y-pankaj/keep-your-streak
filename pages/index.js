@@ -7,6 +7,13 @@ export default function Home() {
   const [session, loading] = useSession();
 
   const [date, setDate] = useState("");
+  const [todoList, setTodoList] = useState([
+    {
+      _id: "dlfkjsfldsjf",
+      task: "Random Todo",
+      done: false,
+    },
+  ]);
 
   if (loading) return <div>loading...</div>;
 
@@ -35,7 +42,7 @@ export default function Home() {
       )} */}
       </div>
       <div className="absolute py-16 w-full h-full bg-opacity-50 bg-gray-100">
-        <DateInfo date={date} />
+        <DateInfo date={date} todoList={todoList} setTodoList={setTodoList} />
       </div>
     </>
   );
