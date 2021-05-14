@@ -3,7 +3,7 @@ import Todo from "./todo/todo";
 
 export default function DateInfo(props) {
   return (
-    <div className="w-10/12 m-auto bg-yellow-500 rounded-md z-10">
+    <div className="w-6/12 m-auto bg-yellow-500 rounded-md z-10">
       <div className="bg-yellow-600 flex rounded-t-md">
         <div
           tabIndex="1"
