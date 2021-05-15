@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "../components/calendar";
 import DateInfo from "../components/date-info";
 import { signIn, signOut, useSession } from "next-auth/client";
@@ -7,13 +7,13 @@ export default function Home() {
   const [session, loading] = useSession();
 
   const [date, setDate] = useState("");
-  const [todoList, setTodoList] = useState([
-    {
-      _id: "dlfkjsfldsjf",
-      task: "Random Todo",
-      done: false,
-    },
-  ]);
+  const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    const result = fetch("/api/todo")
+      .then((response) => response.json())
+      .then((response) => setTodoList(response.data.todoList));
+  }, []);
 
   if (loading) return <div>loading...</div>;
 
