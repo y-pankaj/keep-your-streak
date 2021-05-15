@@ -5,11 +5,21 @@ export default function TodoInputField(props) {
     var keyCode = e.code || e.key;
     if (keyCode == "Enter") {
       const newObjectId = new ObjectID();
-      props.setTodoList([
-        ...props.todoList,
-        { _id: newObjectId, task: e.target.value, done: false },
-      ]);
+      const todo = {
+        title: "Some really important work to finish",
+      };
+      const newTodo = { _id: newObjectId, task: e.target.value, done: false };
+      props.setTodoList([...props.todoList, newTodo]);
       e.target.value = "";
+      const res = fetch("/api/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodo),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
     }
   }
 
