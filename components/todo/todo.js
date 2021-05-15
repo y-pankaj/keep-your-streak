@@ -11,11 +11,14 @@ export default function Todo(props) {
         <TodoDisplayField
           key={todo._id}
           todo={todo}
-          setTodoList={setTodoList}
-          todoList={todoList}
+          setTodoList={props.setTodoList}
+          todoList={props.todoList}
         />
       ))}
-      <TodoInputField todoList={todoList} setTodoList={setTodoList} />
+      <TodoInputField
+        todoList={props.todoList}
+        setTodoList={props.setTodoList}
+      />
     </div>
   );
 }
