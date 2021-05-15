@@ -12,8 +12,7 @@ handler.get(async (req, res) => {
   try {
     const todoList = await req.db
       .collection("CalendarRecord")
-      .findOne({ email: email })
-      .profile({ todoList: 1 });
+      .findOne({ email: email }, { projection: { todoList: 1, _id: 0 } });
 
     res.status(200).json({ success: true, data: todoList });
   } catch (error) {
@@ -28,7 +27,7 @@ handler.post(async (req, res) => {
   const todo = req.body;
   try {
     const update = { $push: { todoList: todo } };
-    let { result } = await req.db
+    const { result } = await req.db
       .collection("CalendarRecord")
       .updateOne(query, update);
 
@@ -39,8 +38,3 @@ handler.post(async (req, res) => {
 });
 
 export default handler;
-
-/* 
-TODO
-Error handling
-*/
