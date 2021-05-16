@@ -45,7 +45,7 @@ handler.delete(async (req, res) => {
   try {
     const todoList = await req.db
       .collection("CalendarRecord")
-      .update(
+      .updateOne(
         { email: email },
         { $pull: { todoList: { createdAt: createdAt } } }
       );
