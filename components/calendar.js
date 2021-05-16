@@ -39,6 +39,7 @@ export default function Calendar(props) {
           setDate={props.setDate}
           date={getDateForCalendar(7 * i + j + 1)}
           today={todayDate}
+          toggleTodo={props.toggleTodo}
         />
       );
     }

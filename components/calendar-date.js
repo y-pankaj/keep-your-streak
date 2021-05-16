@@ -5,8 +5,11 @@ export default function CalendarDate(props) {
 
   return (
     <div
-      onClick={setDate}
-      className={`table-cell h-32 w-32 rounded-md border-4
+      onClick={() => {
+        setDate();
+        props.toggleTodo();
+      }}
+      className={`table-cell h-32 w-32 rounded-md border-4 p-auto
                       ${
                         props.date === null
                           ? "bg-yellow-200"
@@ -16,7 +19,7 @@ export default function CalendarDate(props) {
                       } 
                       `}
     >
-      <h1>{props.date}</h1>
+      <h1 className="text-3xl">{props.date}</h1>
     </div>
   );
 }

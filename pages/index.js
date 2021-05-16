@@ -15,9 +15,9 @@ export default function Home() {
       .then((response) => setTodoList(response.data.todoList));
   }, []);
 
-  function hideTodo() {
+  function toggleTodo() {
     const todoContainer = document.querySelector(".todo-container");
-    todoContainer.classList.add("hidden");
+    todoContainer.classList.toggle("hidden");
   }
 
   if (loading) return <div>loading...</div>;
@@ -27,7 +27,7 @@ export default function Home() {
       <div className="absolute z-0 m-auto h-full w-full py-14">
         <div className="table mx-auto">
           <div className="table-row-group">
-            <Calendar setDate={setDate} />
+            <Calendar setDate={setDate} toggleTodo={toggleTodo} />
           </div>
         </div>
 
@@ -47,7 +47,7 @@ export default function Home() {
       )} */}
       </div>
       <div className="absolute py-16 w-full h-full bg-opacity-50 bg-gray-100 todo-container">
-        <button className="absolute right-8 top-8" onClick={hideTodo}>
+        <button className="absolute right-8 top-8" onClick={toggleTodo}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 bg-yellow-400 rounded-full"
