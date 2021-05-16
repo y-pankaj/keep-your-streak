@@ -20,6 +20,12 @@ export default function Home() {
     todoContainer.classList.toggle("hidden");
   }
 
+  function checkTarget(e) {
+    if (e.target.classList.contains("todo-container")) {
+      toggleTodo();
+    }
+  }
+
   if (loading) return <div>loading...</div>;
 
   return (
@@ -46,7 +52,10 @@ export default function Home() {
         </>
       )} */}
       </div>
-      <div className="absolute py-16 w-full h-full bg-opacity-50 bg-gray-100 todo-container">
+      <div
+        className="absolute py-16 w-full h-full bg-opacity-50 bg-gray-100 todo-container"
+        onClick={checkTarget}
+      >
         <button className="absolute right-8 top-8" onClick={toggleTodo}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
