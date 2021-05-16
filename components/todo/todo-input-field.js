@@ -1,14 +1,17 @@
 import React from "react";
-import ObjectID from "bson-objectid";
 export default function TodoInputField(props) {
   function handleEnterKey(e) {
     var keyCode = e.code || e.key;
     if (keyCode == "Enter") {
-      const newObjectId = new ObjectID();
+      const createdAt = new Date().getTime();
       const todo = {
         title: "Some really important work to finish",
       };
-      const newTodo = { _id: newObjectId, task: e.target.value, done: false };
+      const newTodo = {
+        createdAt: createdAt,
+        task: e.target.value,
+        done: false,
+      };
       props.setTodoList([...props.todoList, newTodo]);
       e.target.value = "";
       const res = fetch("/api/todo", {
