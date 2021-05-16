@@ -2,10 +2,19 @@ import React from "react";
 
 export default function TodoDisplayField(props) {
   function handleClick() {
-    console.log(props.todo._id);
     props.setTodoList(
-      props.todoList.filter((currentTodo) => currentTodo._id !== props.todo._id)
+      props.todoList.filter(
+        (currentTodo) => currentTodo.createdAt !== props.todo.createdAt
+      )
     );
+    const body = JSON.stringify({ createdAt: props.todo.createdAt });
+    const result = fetch("/api/todo", {
+      method: "DELETE",
+      body: body,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    console.log(body);
   }
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
