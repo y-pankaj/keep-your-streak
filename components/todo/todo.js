@@ -9,7 +9,7 @@ export default function Todo(props) {
     <div>
       {props.todoList.map((todo) => (
         <TodoDisplayField
-          key={todo._id}
+          key={todo.createdAt}
           todo={todo}
           setTodoList={props.setTodoList}
           todoList={props.todoList}
