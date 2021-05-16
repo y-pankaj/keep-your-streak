@@ -1,8 +1,7 @@
 import CalendarDate from "./calendar-date";
 
 export default function Calendar(props) {
-  var date = new Date(2000, 3);
-  // console.log(date);
+  var date = new Date();
   var todayDate = date.getDate();
   // console.log(date.getFullYear());
   var year = date.getFullYear();
