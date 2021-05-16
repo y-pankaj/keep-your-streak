@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="absolute z-0 m-auto h-full w-full py-14">
+      <div className="absolute z-0 m-auto h-full w-full py-14 bg-purple-100">
         <div className="table mx-auto">
           <div className="table-row-group">
             <Calendar setDate={setDate} toggleTodo={toggleTodo} />
