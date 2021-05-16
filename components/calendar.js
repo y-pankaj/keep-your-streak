@@ -2,21 +2,21 @@ import CalendarDate from "./calendar-date";
 
 export default function Calendar(props) {
   var date = new Date(2000, 3);
-  console.log(date);
+  // console.log(date);
   var todayDate = date.getDate();
-  console.log(date.getFullYear());
+  // console.log(date.getFullYear());
   var year = date.getFullYear();
   var month = date.getMonth();
   var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   firstDay = firstDay === 0 ? 7 : firstDay;
   // console.log(firstDay.getDay());
-  console.log(firstDay);
+  // console.log(firstDay);
   // month variable is 1 indexed
   function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
 
-  console.log(daysInMonth(month + 1, year));
+  // console.log(daysInMonth(month + 1, year));
   function getDateForCalendar(blockNum) {
     if (
       blockNum < firstDay ||
