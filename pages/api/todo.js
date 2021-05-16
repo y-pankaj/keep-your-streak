@@ -37,4 +37,23 @@ handler.post(async (req, res) => {
   }
 });
 
+handler.delete(async (req, res) => {
+  const session = await getSession({ req });
+  const email = session.user.email;
+  const body = req.body;
+  const createdAt = JSON.parse(body).createdAt;
+  try {
+    const todoList = await req.db
+      .collection("CalendarRecord")
+      .update(
+        { email: email },
+        { $pull: { todoList: { createdAt: createdAt } } }
+      );
+
+    res.status(200).json({ success: true, data: todoList });
+  } catch (error) {
+    res.status(400).json({ success: false, data: error });
+  }
+});
+
 export default handler;
