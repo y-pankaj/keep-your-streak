@@ -18,12 +18,13 @@ export default function TodoDisplayField(props) {
   }
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
-      <div className="space-x-4 flex items-end">
-        <div className="">
+      <div className="space-x-4 flex items-start">
+        <div className="pt-1">
           <input type="checkbox" value="Bike" className="h-4 w-4" />
         </div>
-
-        <span className="text-lg">{props.todo.task}</span>
+        <div>
+          <span className="text-lg break-words">{props.todo.task}</span>
+        </div>
       </div>
       <button
         className="w-6 h-6 hover:bg-gray-300 rounded-full"
