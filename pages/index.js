@@ -29,8 +29,8 @@ export default function Home() {
   if (loading) return <div>loading...</div>;
 
   return (
-    <>
-      <div className="absolute z-0 m-auto h-full w-full py-14 bg-purple-100">
+    <div className="bg-purple-500">
+      <div className="absolute z-0 m-auto h-screen w-screen py-14 ">
         <div className="table mx-auto">
           <div className="table-row-group">
             <Calendar setDate={setDate} toggleTodo={toggleTodo} />
@@ -53,7 +53,7 @@ export default function Home() {
       )} */}
       </div>
       <div
-        className="absolute py-16 w-full h-full bg-opacity-50 bg-gray-100 todo-container"
+        className="fixed overflow-auto py-16 w-full h-full bg-opacity-50 bg-gray-100 todo-container"
         onClick={checkTarget}
       >
         <button className="absolute right-8 top-8" onClick={toggleTodo}>
@@ -75,6 +75,6 @@ export default function Home() {
 
         <DateInfo date={date} todoList={todoList} setTodoList={setTodoList} />
       </div>
-    </>
+    </div>
   );
 }
