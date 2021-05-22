@@ -6,7 +6,7 @@ export default function Home() {
   const [session, loading] = useSession();
 
   function handleClick() {
-    const result = fetch("http://localhost:3000/api/todo")
+    const result = fetch("/api/todo")
       .then((response) => response.json())
       .then((data) => console.log(data));
     // console.log(result.data);
