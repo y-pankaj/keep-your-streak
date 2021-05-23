@@ -10,9 +10,6 @@ export default function Home() {
 
   if (loading) return <div></div>;
 
-  if (session) {
-    router.push("/app");
-  }
   return (
     <div>
       <Navbar />
@@ -23,10 +20,22 @@ export default function Home() {
             <Image src="/rocket.png" width={50} height={50} />
           </h1>
         </div>
-        <button className="py-2 text-2xl bg-yellow-300 rounded-lg w-48">
+        <button
+          className="py-2 text-2xl bg-yellow-300 rounded-lg w-48"
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: `${window.location.origin}/app`,
+            })
+          }
+        >
           Get Started
         </button>
       </div>
     </div>
   );
 }
+
+// redirect after logout
+// reduce image size
+// link button to login
+// avoid flash on redirect
