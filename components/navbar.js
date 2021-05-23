@@ -1,4 +1,4 @@
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signout, signOut, useSession } from "next-auth/client";
 
 export default function Navbar() {
   const [session, loading] = useSession();
@@ -19,7 +19,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <div>
               <a
-                href="#"
+                href="/"
                 className="flex items-center px-2 py-5 text-gray-700 hover:text-gray-900"
               >
                 <svg
@@ -60,23 +60,28 @@ export default function Navbar() {
           {!loading && !session && (
             <>
               <div className="hidden md:flex items-center space-x-1">
-                <a
-                  href="#"
-                  onClick={() => signIn("google")}
-                  className="px-2 py-5 text-gray-700 hover:text-gray-900"
+                <button
+                  onClick={() =>
+                    signIn("google", {
+                      callbackUrl: `${window.location.origin}/app/`,
+                    })
+                  }
+                  className="px-2 py-3 text-gray-700 hover:text-gray-900"
                 >
                   Log In
-                </a>
-                <a
-                  href="#"
-                  onClick={() => signIn("google")}
+                </button>
+                <button
+                  onClick={() =>
+                    signIn("google", {
+                      callbackUrl: `${window.location.origin}/app/`,
+                    })
+                  }
                   className="px-2 py-3 text-gray-700 hover:text-gray-900
-                              text-yellow-900 hover:text-yellow:700
                               bg-yellow-400 hover:bg-yellow-300 rounded
                               transition duration-300"
                 >
                   Sign up
-                </a>
+                </button>
               </div>
             </>
           )}
@@ -84,13 +89,16 @@ export default function Navbar() {
           {!loading && session && (
             <>
               <div className="hidden md:flex items-center space-x-1">
-                <a
-                  href="#"
-                  onClick={() => signOut()}
-                  className="px-2 py-5 text-gray-700 hover:text-gray-900"
+                <button
+                  onClick={() =>
+                    signOut({
+                      callbackUrl: `${window.location.origin}/`,
+                    })
+                  }
+                  className="px-2 py-3 text-gray-700 hover:text-gray-900"
                 >
                   Log Out
-                </a>
+                </button>
               </div>
             </>
           )}
