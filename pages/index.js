@@ -34,8 +34,3 @@ export default function Home() {
     </div>
   );
 }
-
-// redirect after logout
-// reduce image size
-// link button to login
-// avoid flash on redirect

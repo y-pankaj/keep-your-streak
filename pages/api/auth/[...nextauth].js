@@ -20,8 +20,6 @@ export default NextAuth({
      * @return {string}          URL the client will be redirect to
      */
     redirect: async (url, baseUrl) => {
-      console.log(url);
-      console.log(baseUrl);
       return url.startsWith(baseUrl)
         ? Promise.resolve(url)
         : Promise.resolve(baseUrl);
