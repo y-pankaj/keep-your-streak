@@ -39,27 +39,12 @@ export default function App() {
               <Calendar setDate={setDate} toggleTodo={toggleTodo} />
             </div>
           </div>
-
-          {/* {!loading && !session && (
-        <>
-          <button onClick={() => signIn('google')}>Sign in</button>
-        </>
-      )}
-
-      {!loading && session && (
-        <>
-          <img src={session.user.image} className="avatar" />
-          <h1>{session.user.name}</h1>
-          {JSON.stringify(session)}
-          <button onClick={() => signOut()}>Sign out</button>
-        </>
-      )} */}
         </div>
         <div
-          className="fixed overflow-auto pt-24 pb-10 w-full h-full bg-opacity-50 bg-gray-100 todo-container"
+          className="fixed overflow-auto pt-28 pb-10 w-full h-full bg-opacity-50 bg-gray-100 todo-container"
           onClick={checkTarget}
         >
-          <button className="absolute right-8 top-8" onClick={toggleTodo}>
+          <button className="absolute right-8 top-20" onClick={toggleTodo}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 bg-yellow-400 rounded-full"
