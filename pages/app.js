@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import Calendar from "../components/calendar";
 import DateInfo from "../components/date-info";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession, getSession } from "next-auth/client";
 import Navbar from "../components/navbar";
 
 export default function App() {
-  const [session, loading] = useSession();
+  // const [session, loading] = useSession();
 
   const [date, setDate] = useState("");
   const [todoList, setTodoList] = useState([]);
@@ -13,7 +13,11 @@ export default function App() {
   useEffect(() => {
     const result = fetch("/api/todo")
       .then((response) => response.json())
-      .then((response) => setTodoList(response.data.todoList));
+      .then((response) => {
+        if (response.data) {
+          setTodoList(response.data.todoList);
+        }
+      });
   }, []);
 
   function toggleTodo() {
@@ -26,8 +30,6 @@ export default function App() {
       toggleTodo();
     }
   }
-
-  if (loading) return <div>loading...</div>;
 
   return (
     <>
@@ -66,4 +68,21 @@ export default function App() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      props: { session },
+    };
+  }
 }
