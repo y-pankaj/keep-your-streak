@@ -8,15 +8,23 @@ handler.use(middleware);
 
 handler.get(async (req, res) => {
   const session = await getSession({ req });
-  const email = session.user.email;
   try {
+    const email = session.user.email;
     const todoList = await req.db
       .collection("CalendarRecord")
       .findOne({ email: email }, { projection: { todoList: 1, _id: 0 } });
 
-    res.status(200).json({ success: true, data: todoList });
+    if (todoList === null) {
+      const result = await req.db
+        .collection("CalendarRecord")
+        .insertOne({ email: session.user.email, todoList: [] });
+
+      res.status(200).json({ success: true, data: result.ops[0] });
+    } else {
+      res.status(200).json({ success: true, data: todoList });
+    }
   } catch (error) {
-    res.status(400).json({ success: false, data: error });
+    res.status(400).json({ success: false, data: JSON.stringify(error) });
   }
 });
 
