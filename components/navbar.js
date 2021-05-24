@@ -140,12 +140,41 @@ export default function Navbar() {
 
         {/* mobile menu */}
         <div className="mobile-menu hidden md:hidden">
-          <a href="#" className="block py-2 px-2">
-            Todo
-          </a>
-          <a href="#" className="block py-2 px-2">
-            Calendar
-          </a>
+          <div className="flex flex-col">
+            <a href="#" className="block py-2 px-2 border-b-2">
+              Todo
+            </a>
+            <a href="#" className="block py-2 px-2 border-b-2">
+              Calendar
+            </a>
+            {session ? (
+              <button
+                onClick={() =>
+                  signIn("google", {
+                    callbackUrl: `${window.location.origin}/app/`,
+                  })
+                }
+                className="px-2 py-2 my-2 text-gray-700 hover:text-gray-900
+              bg-yellow-400 hover:bg-yellow-300 rounded
+                transition duration-300"
+              >
+                Log In
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  signOut({
+                    callbackUrl: `${window.location.origin}/`,
+                  })
+                }
+                className="px-2 py-2 my-2 text-gray-700 hover:text-gray-900
+              bg-yellow-400 hover:bg-yellow-300 rounded
+                transition duration-300"
+              >
+                Sign Out
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </nav>
