@@ -20,16 +20,25 @@ export default function Home() {
             <Image src="/rocket.png" width={50} height={50} />
           </h1>
         </div>
-        <button
-          className="py-2 text-2xl bg-yellow-300 rounded-lg w-48"
-          onClick={() =>
-            signIn("google", {
-              callbackUrl: `${window.location.origin}/app`,
-            })
-          }
-        >
-          Get Started
-        </button>
+        {!session ? (
+          <button
+            className="py-2 text-2xl bg-yellow-300 rounded-lg w-48"
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: `${window.location.origin}/app`,
+              })
+            }
+          >
+            Get Started
+          </button>
+        ) : (
+          <button
+            onClick={() => router.push("/app")}
+            className="py-2 text-2xl bg-yellow-300 rounded-lg w-48"
+          >
+            Carry On
+          </button>
+        )}
       </div>
     </div>
   );
