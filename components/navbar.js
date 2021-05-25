@@ -147,7 +147,7 @@ export default function Navbar() {
             <a href="#" className="block py-2 px-2 border-b-2">
               Calendar
             </a>
-            {session ? (
+            {!session ? (
               <button
                 onClick={() =>
                   signIn("google", {
