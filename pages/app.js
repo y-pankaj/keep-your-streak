@@ -35,7 +35,7 @@ export default function App() {
     <>
       <Navbar />
       <div className="bg-purple-500">
-        <div className="absolute m-auto h-screen w-screen py-20 ">
+        <div className="absolute m-auto w-screen py-20 bg-stone-henge bg-cover overflow-auto">
           <div className="table mx-auto">
             <div className="table-row-group">
               <Calendar setDate={setDate} toggleTodo={toggleTodo} />
