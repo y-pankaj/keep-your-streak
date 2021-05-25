@@ -1,13 +1,11 @@
 import React from "react";
 
-export default function TodoDisplayField(props) {
+export default function TodoDisplayField({ todo, todoList, setTodoList }) {
   function deleteTodo() {
-    props.setTodoList(
-      props.todoList.filter(
-        (currentTodo) => currentTodo.createdAt !== props.todo.createdAt
-      )
+    setTodoList(
+      todoList.filter((currentTodo) => currentTodo.createdAt !== todo.createdAt)
     );
-    const body = JSON.stringify({ createdAt: props.todo.createdAt });
+    const body = JSON.stringify({ createdAt: todo.createdAt });
     const result = fetch("/api/todo", {
       method: "DELETE",
       body: body,
@@ -20,18 +18,18 @@ export default function TodoDisplayField(props) {
   // change the done property of the todo
   function handleCheckbox() {
     let updatedDone;
-    let updatedTodoList = [...props.todoList];
-    for (var i = 0; i < props.todoList.length; i++) {
-      if (updatedTodoList[i].createdAt == props.todo.createdAt) {
+    let updatedTodoList = [...todoList];
+    for (var i = 0; i < todoList.length; i++) {
+      if (updatedTodoList[i].createdAt == todo.createdAt) {
         updatedTodoList[i].done = !updatedTodoList[i].done;
         updatedDone = updatedTodoList[i].done;
         break;
       }
     }
-    props.setTodoList(updatedTodoList);
+    setTodoList(updatedTodoList);
 
     const body = JSON.stringify({
-      createdAt: props.todo.createdAt,
+      createdAt: todo.createdAt,
       done: updatedDone,
     });
     const result = fetch("/api/todo", {
@@ -47,7 +45,7 @@ export default function TodoDisplayField(props) {
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
       <div className="space-x-4 flex items-start">
         <div className="pt-1">
-          {props.todo.done ? (
+          {todo.done ? (
             <input
               type="checkbox"
               onClick={handleCheckbox}
@@ -64,11 +62,9 @@ export default function TodoDisplayField(props) {
         </div>
         <div>
           <span
-            className={`text-lg break-words ${
-              props.todo.done ? "line-through" : ""
-            }`}
+            className={`text-lg break-words ${todo.done ? "line-through" : ""}`}
           >
-            {props.todo.task}
+            {todo.task}
           </span>
         </div>
       </div>

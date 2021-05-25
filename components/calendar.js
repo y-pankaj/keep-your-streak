@@ -1,6 +1,6 @@
 import CalendarDate from "./calendar-date";
 
-export default function Calendar(props) {
+export default function Calendar({ setDate, toggleTodo }) {
   var date = new Date();
   var todayDate = date.getDate();
   // console.log(date.getFullYear());
@@ -35,10 +35,10 @@ export default function Calendar(props) {
       calendarRow.push(
         <CalendarDate
           key={key}
-          setDate={props.setDate}
+          setDate={setDate}
           date={getDateForCalendar(7 * i + j + 1)}
           today={todayDate}
-          toggleTodo={props.toggleTodo}
+          toggleTodo={toggleTodo}
         />
       );
     }

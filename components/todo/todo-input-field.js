@@ -1,5 +1,5 @@
 import React from "react";
-export default function TodoInputField(props) {
+export default function TodoInputField({ todoList, setTodoList }) {
   function handleEnterKey(e) {
     var keyCode = e.code || e.key;
     if (keyCode == "Enter") {
@@ -12,7 +12,7 @@ export default function TodoInputField(props) {
         task: e.target.value,
         done: false,
       };
-      props.setTodoList([...props.todoList, newTodo]);
+      setTodoList([...todoList, newTodo]);
       e.target.value = "";
       const res = fetch("/api/todo", {
         method: "POST",

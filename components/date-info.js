@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "./todo/todo";
 
-export default function DateInfo(props) {
+export default function DateInfo({ date, todoList, setTodoList }) {
   return (
     <div className="w-10/12 sm:w-8/12 lg:w-7/12 xl:w-6/12 m-auto bg-yellow-500 rounded-md z-10">
       <div className="bg-yellow-600 flex justify-between items-center rounded-t-md">
@@ -41,7 +41,7 @@ export default function DateInfo(props) {
         </svg>
       </div>
       <div>
-        <Todo todoList={props.todoList} setTodoList={props.setTodoList} />
+        <Todo todoList={todoList} setTodoList={setTodoList} />
       </div>
     </div>
   );
