@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Timer from "../components/timer";
 import Navbar from "../components/navbar";
-
+import Spotify from "../components/spotify";
 export default function Study() {
   const [time, setTime] = useState(10);
   const [running, setRunning] = useState(false);
@@ -30,8 +30,8 @@ export default function Study() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center w-screen h-screen bg-stone-henge bg-cover">
-        <div className="flex flex-col items-center space-y-5 ">
+      <div className="flex flex-col justify-end lg:justify-center items-center space-y-5 pb-5 w-screen h-screen bg-stone-henge bg-cover overflow-auto">
+        <div className="flex flex-col items-center space-y-2">
           <Timer time={time} setTime={setTime} running={running} />
           <button
             className="w-72 bg-yellow-300 rounded-md py-1"
@@ -40,6 +40,7 @@ export default function Study() {
             <span className="text-2xl">{running ? "RESET" : "START"}</span>
           </button>
         </div>
+        <Spotify />
       </div>
     </>
   );
