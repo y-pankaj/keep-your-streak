@@ -26,11 +26,11 @@ export default function Timer({ time, setTime, running }) {
     <div>
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col justify-between items-center">
-          {!running && (
+          {!running ? (
             <button onClick={increaseTimer}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
+                className="h-10 w-16"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -43,13 +43,15 @@ export default function Timer({ time, setTime, running }) {
                 />
               </svg>
             </button>
+          ) : (
+            <div className="h-10 w-16"></div>
           )}
-          <span className="text-9xl">{minutes}</span>
-          {!running && (
+          <span className="text-9xl font-medium">{minutes}</span>
+          {!running ? (
             <button onClick={decreaseTime}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
+                className="h-10 w-16"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -62,13 +64,15 @@ export default function Timer({ time, setTime, running }) {
                 />
               </svg>
             </button>
+          ) : (
+            <div className="h-10 w-16"></div>
           )}
         </div>
         <div>
-          <span className="text-9xl">:</span>
+          <span className="text-9xl font-medium">:</span>
         </div>
         <div>
-          <span className="text-9xl">{seconds}</span>
+          <span className="text-9xl font-medium">{seconds}</span>
         </div>
       </div>
     </div>
@@ -77,6 +81,6 @@ export default function Timer({ time, setTime, running }) {
 
 Timer.propTypes = {
   time: PropTypes.number.isRequired,
-  setTime: PropTypes.func,
+  setTime: PropTypes.any,
   running: PropTypes.bool,
 };

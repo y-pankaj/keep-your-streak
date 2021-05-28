@@ -30,11 +30,14 @@ export default function Study() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center w-screen h-screen">
-        <div>
+      <div className="flex justify-center items-center w-screen h-screen bg-stone-henge bg-cover">
+        <div className="flex flex-col items-center space-y-5 ">
           <Timer time={time} setTime={setTime} running={running} />
-          <button onClick={() => setRunning((running) => !running)}>
-            {running ? "Reset" : "Start"}
+          <button
+            className="w-72 bg-yellow-300 rounded-md py-1"
+            onClick={() => setRunning((running) => !running)}
+          >
+            <span className="text-2xl">{running ? "RESET" : "START"}</span>
           </button>
         </div>
       </div>
