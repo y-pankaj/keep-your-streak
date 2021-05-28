@@ -30,7 +30,10 @@ export default function Study() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col justify-end lg:justify-center items-center space-y-5 pb-5 w-screen h-screen bg-stone-henge bg-cover overflow-auto">
+      <div
+        className="flex flex-col justify-center items-center 
+          space-y-5 pb-2 w-screen h-screen bg-stone-henge bg-cover overflow-scroll"
+      >
         <div className="flex flex-col items-center space-y-2">
           <Timer time={time} setTime={setTime} running={running} />
           <button
@@ -40,7 +43,9 @@ export default function Study() {
             <span className="text-2xl">{running ? "RESET" : "START"}</span>
           </button>
         </div>
-        <Spotify />
+        <div>
+          <Spotify />
+        </div>
       </div>
     </>
   );
