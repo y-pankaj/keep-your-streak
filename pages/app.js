@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "../components/calendar";
 import DateInfo from "../components/date-info";
-import { signIn, signOut, useSession, getSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import Navbar from "../components/navbar";
 
 export default function App() {
