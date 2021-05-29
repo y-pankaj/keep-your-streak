@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { getSession } from "next-auth/client";
 import Timer from "../components/timer";
 import Navbar from "../components/navbar";
 import Spotify from "../components/spotify";
+
 export default function Study() {
-  const [time, setTime] = useState(10);
+  const [time, setTime] = useState(25 * 60);
   const [running, setRunning] = useState(false);
+  const maxTimeRef = useRef(25 * 60);
 
   useEffect(() => {
     let intervalId;
@@ -13,6 +16,11 @@ export default function Study() {
     }
     return () => {
       clearInterval(intervalId);
+      setTime(() => {
+        if (time != 0) {
+          return maxTimeRef.current;
+        }
+      });
     };
   }, [running]);
 
@@ -22,8 +30,16 @@ export default function Study() {
         return time - 1;
       } else {
         setRunning((running) => !running);
+        // timerOver();
         return 0;
       }
+    });
+  }
+
+  function timerOver() {
+    fetch("/api/timer", {
+      method: "POST",
+      body: JSON.stringify(25 * 60),
     });
   }
 
@@ -35,12 +51,17 @@ export default function Study() {
           space-y-5 pb-2 w-screen h-screen bg-stone-henge bg-cover overflow-scroll"
       >
         <div className="flex flex-col items-center space-y-2">
-          <Timer time={time} setTime={setTime} running={running} />
+          <Timer
+            time={time}
+            setTime={setTime}
+            running={running}
+            maxTimeRef={maxTimeRef}
+          />
           <button
             className="w-72 bg-yellow-300 rounded-md py-1"
             onClick={() => setRunning((running) => !running)}
           >
-            <span className="text-2xl">{running ? "RESET" : "START"}</span>
+            <span className="text-2xl">{running ? "Abort" : "Start"}</span>
           </button>
         </div>
         <div>
@@ -49,4 +70,21 @@ export default function Study() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      props: { session },
+    };
+  }
 }
