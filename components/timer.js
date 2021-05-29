@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function Timer({ time, setTime, running }) {
+export default function Timer({ time, maxTimeRef, running, setTime }) {
   var seconds = time % 60;
   seconds = String(seconds).length == 1 ? `0${seconds}` : seconds;
 
@@ -9,14 +9,19 @@ export default function Timer({ time, setTime, running }) {
   minutes = String(minutes).length == 1 ? `0${minutes}` : minutes;
 
   function increaseTimer() {
-    setTime((time) => time + 5 * 60);
+    setTime((time) => {
+      maxTimeRef.current = time + 5 * 60;
+      return time + 5 * 60;
+    });
   }
 
   function decreaseTime() {
     setTime((time) => {
       if (time > 5 * 60) {
+        maxTimeRef.current = time - 5 * 60;
         return time - 5 * 60;
       } else {
+        maxTimeRef.current = 0;
         return 0;
       }
     });
@@ -81,6 +86,7 @@ export default function Timer({ time, setTime, running }) {
 
 Timer.propTypes = {
   time: PropTypes.number.isRequired,
+  maxTimeRef: PropTypes.number,
   setTime: PropTypes.any,
   running: PropTypes.bool,
 };
