@@ -42,20 +42,22 @@ export default function Navbar() {
             </div>
 
             {/* secondary navbar */}
-            <div className="hidden md:flex items-center space-x-3">
-              <a
-                href="/app"
-                className="px-2 py-5 text-gray-700 hover:text-gray-900"
-              >
-                Todo
-              </a>
-              <a
-                href="/study"
-                className="px-2 py-5 text-gray-700 hover:text-gray-900"
-              >
-                Study
-              </a>
-            </div>
+            {session && (
+              <div className="hidden md:flex items-center space-x-3">
+                <a
+                  href="/app"
+                  className="px-2 py-5 text-gray-700 hover:text-gray-900"
+                >
+                  Todo
+                </a>
+                <a
+                  href="/study"
+                  className="px-2 py-5 text-gray-700 hover:text-gray-900"
+                >
+                  Study
+                </a>
+              </div>
+            )}
           </div>
 
           {!loading && !session && (
@@ -142,12 +144,16 @@ export default function Navbar() {
         {/* mobile menu */}
         <div className="mobile-menu hidden md:hidden">
           <div className="flex flex-col">
-            <a href="/app" className="block py-2 px-2 border-b-2">
-              Todo
-            </a>
-            <a href="/study" className="block py-2 px-2 border-b-2">
-              Study
-            </a>
+            {session && (
+              <a href="/app" className="block py-2 px-2 border-b-2">
+                Todo
+              </a>
+            )}
+            {session && (
+              <a href="/study" className="block py-2 px-2 border-b-2">
+                Study
+              </a>
+            )}
             {!session ? (
               <button
                 onClick={() =>
