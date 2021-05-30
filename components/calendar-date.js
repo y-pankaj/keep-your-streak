@@ -8,7 +8,9 @@ export default function CalendarDate({ setDate, toggleTodo, today, date }) {
         var thisDate = new Date();
         thisDate.setDate(date);
         setDate(thisDate);
-        toggleTodo();
+        if (date) {
+          toggleTodo();
+        }
       }}
       className={`table-cell h-32 w-32 rounded-md border-4 p-auto
                       ${
