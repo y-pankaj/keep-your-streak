@@ -5,9 +5,9 @@ import Navbar from "../components/navbar";
 import Spotify from "../components/spotify";
 
 export default function Study() {
-  const [time, setTime] = useState(25 * 60);
+  const [time, setTime] = useState(10);
   const [running, setRunning] = useState(false);
-  const maxTimeRef = useRef(25 * 60);
+  const maxTimeRef = useRef(time);
 
   useEffect(() => {
     let intervalId;
@@ -16,10 +16,11 @@ export default function Study() {
     }
     return () => {
       clearInterval(intervalId);
-      setTime(() => {
+      setTime((time) => {
         if (time != 0) {
           return maxTimeRef.current;
         }
+        return 0;
       });
     };
   }, [running]);
@@ -30,16 +31,17 @@ export default function Study() {
         return time - 1;
       } else {
         setRunning((running) => !running);
-        // timerOver();
+        timerOver();
         return 0;
       }
     });
   }
 
   function timerOver() {
+    const body = { maxTime: maxTimeRef.current, date: new Date() };
     fetch("/api/timer", {
       method: "POST",
-      body: JSON.stringify(25 * 60),
+      body: JSON.stringify(body),
     });
   }
 
