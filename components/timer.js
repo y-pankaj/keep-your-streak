@@ -86,7 +86,7 @@ export default function Timer({ time, maxTimeRef, running, setTime }) {
 
 Timer.propTypes = {
   time: PropTypes.number.isRequired,
-  maxTimeRef: PropTypes.number,
+  maxTimeRef: PropTypes.object,
   setTime: PropTypes.any,
   running: PropTypes.bool,
 };
