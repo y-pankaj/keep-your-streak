@@ -1,8 +1,13 @@
+import React from "react";
+import PropTypes from "prop-types";
+
 export default function CalendarDate({ setDate, toggleTodo, today, date }) {
   return (
     <div
       onClick={() => {
-        setDate(date);
+        var thisDate = new Date();
+        thisDate.setDate(date);
+        setDate(thisDate);
         toggleTodo();
       }}
       className={`table-cell h-32 w-32 rounded-md border-4 p-auto
@@ -19,3 +24,10 @@ export default function CalendarDate({ setDate, toggleTodo, today, date }) {
     </div>
   );
 }
+
+CalendarDate.propTypes = {
+  setDate: PropTypes.func,
+  toggleTodo: PropTypes.func,
+  today: PropTypes.any,
+  date: PropTypes.any,
+};
