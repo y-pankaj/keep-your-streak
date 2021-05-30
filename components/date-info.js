@@ -1,7 +1,16 @@
 import React from "react";
 import Todo from "./todo/todo";
+import DateStats from "./date-stats";
+import PropTypes from "prop-types";
 
 export default function DateInfo({ date, todoList, setTodoList }) {
+  const displayDate =
+    date.getDate() +
+    " " +
+    date.toLocaleString("default", { month: "short" }) +
+    " '" +
+    date.getFullYear().toString().substr(-2);
+
   return (
     <div className="w-10/12 sm:w-8/12 lg:w-7/12 xl:w-6/12 m-auto bg-yellow-500 rounded-md z-10">
       <div className="bg-yellow-600 flex justify-between items-center rounded-t-md">
@@ -23,7 +32,7 @@ export default function DateInfo({ date, todoList, setTodoList }) {
           tabIndex="1"
           className="p-2 text-xl font-mono focus:bg-yellow-500 focus:rounded-t-xl"
         >
-          TODO
+          {displayDate}
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +50,17 @@ export default function DateInfo({ date, todoList, setTodoList }) {
         </svg>
       </div>
       <div>
-        <Todo todoList={todoList} setTodoList={setTodoList} />
+        <DateStats />
       </div>
+      {/* <div>
+        <Todo todoList={todoList} setTodoList={setTodoList} />
+      </div> */}
     </div>
   );
 }
+
+DateInfo.propTypes = {
+  date: PropTypes.object,
+  todoList: PropTypes.array,
+  setTodoList: PropTypes.any,
+};
