@@ -20,8 +20,8 @@ export default function DateStats({ date, timerData }) {
     var m = Math.floor((d % 3600) / 60);
     var s = Math.floor((d % 3600) % 60);
 
-    var hDisplay = h > 0 ? h + (h == 1 ? " hr, " : " hrs, ") : "";
-    var mDisplay = m > 0 ? m + (m == 1 ? " min, " : " mins, ") : "";
+    var hDisplay = h > 0 ? h + (h == 1 ? " hr: " : " hrs ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " min: " : " mins ") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? " sec" : " secs") : "";
     var totalTime = hDisplay + mDisplay + sDisplay;
     return totalTime == "" ? "0 sec" : totalTime;
@@ -37,6 +37,6 @@ export default function DateStats({ date, timerData }) {
 }
 
 DateStats.propTypes = {
-  date: PropTypes.number,
+  date: PropTypes.object,
   timerData: PropTypes.object,
 };
