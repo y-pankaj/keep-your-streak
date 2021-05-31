@@ -3,7 +3,7 @@ import Todo from "./todo/todo";
 import DateStats from "./date-stats";
 import PropTypes from "prop-types";
 
-export default function DateInfo({ date, todoList, setTodoList }) {
+export default function DateInfo({ date, timerData, todoList, setTodoList }) {
   const displayDate =
     date.getDate() +
     " " +
@@ -50,7 +50,7 @@ export default function DateInfo({ date, todoList, setTodoList }) {
         </svg>
       </div>
       <div>
-        <DateStats />
+        <DateStats timerData={timerData} date={date} />
       </div>
       {/* <div>
         <Todo todoList={todoList} setTodoList={setTodoList} />
@@ -61,6 +61,7 @@ export default function DateInfo({ date, todoList, setTodoList }) {
 
 DateInfo.propTypes = {
   date: PropTypes.object,
+  timerData: PropTypes.object,
   todoList: PropTypes.array,
   setTodoList: PropTypes.any,
 };
