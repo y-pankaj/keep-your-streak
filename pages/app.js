@@ -5,19 +5,60 @@ import { getSession } from "next-auth/client";
 import Navbar from "../components/navbar";
 
 export default function App() {
-  // const [session, loading] = useSession();
-
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [todoList, setTodoList] = useState([]);
+  const [timerData, setTimerData] = useState({});
 
   useEffect(() => {
-    const result = fetch("/api/todo")
+    fetch("/api/todo", {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.data) {
           setTodoList(response.data.todoList);
         }
       });
+  }, []);
+
+  useEffect(() => {
+    const todayDate = new Date();
+    const startDate = new Date(
+      todayDate.getFullYear(),
+      todayDate.getMonth(),
+      1
+    ).setHours(0, 0, 0, 0);
+
+    const endDate = new Date(
+      todayDate.getFullYear(),
+      todayDate.getMonth() + 1,
+      0
+    ).setHours(23, 59, 59, 999);
+
+    fetch("/api/timer?" + "start=" + startDate + "&" + "end=" + endDate, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.data) {
+          const responseData = response.data.timer;
+          const studySessions = {};
+          for (let i = 0; i < responseData.length; i++) {
+            const data = responseData[i];
+            const date = new Date(data.date).getDate();
+            const time = data.maxTime;
+            if (date in studySessions) {
+              studySessions[date].time = studySessions[date].time + time;
+              studySessions[date].sessions = studySessions[date].sessions + 1;
+            } else {
+              studySessions[date] = { time: time, sessions: 1 };
+            }
+          }
+          console.log(studySessions);
+          setTimerData(studySessions);
+        }
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   function toggleTodo() {
@@ -63,7 +104,12 @@ export default function App() {
             </svg>
           </button>
 
-          <DateInfo date={date} todoList={todoList} setTodoList={setTodoList} />
+          <DateInfo
+            date={date}
+            todoList={todoList}
+            setTodoList={setTodoList}
+            timerData={timerData}
+          />
         </div>
       </div>
     </>
