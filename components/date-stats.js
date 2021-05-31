@@ -10,7 +10,7 @@ export default function DateStats({ date, timerData }) {
       const time = timerData[currentDate].time;
       setCurrentStats({ sessions: sessions, time: secondsToHms(time) });
     } else {
-      setCurrentStats({ sessions: 0, time: 0 });
+      setCurrentStats({ sessions: 0, time: secondsToHms(0) });
     }
   }, [date, timerData]);
 
@@ -23,7 +23,8 @@ export default function DateStats({ date, timerData }) {
     var hDisplay = h > 0 ? h + (h == 1 ? " hr, " : " hrs, ") : "";
     var mDisplay = m > 0 ? m + (m == 1 ? " min, " : " mins, ") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? " sec" : " secs") : "";
-    return hDisplay + mDisplay + sDisplay;
+    var totalTime = hDisplay + mDisplay + sDisplay;
+    return totalTime == "" ? "0 sec" : totalTime;
   }
   return (
     <div>
