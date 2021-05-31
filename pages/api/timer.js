@@ -14,25 +14,44 @@ handler.get(async (req, res) => {
     const end = Number(req.query.end);
     const startDate = new Date(start).toISOString();
     const endDate = new Date(end).toISOString();
-
-    const studySessions = await req.db.collection("CalendarRecord").findOne(
-      { email: email },
-      {
-        projection: {
-          timer: {
-            $elemMatch: {
-              date: {
-                $gte: startDate,
-                $lt: endDate,
+    console.log(startDate);
+    console.log(endDate);
+    var result = { time: [] };
+    await req.db
+      .collection("CalendarRecord")
+      .aggregate([
+        {
+          $match: { email: email },
+        },
+        {
+          $project: {
+            timer: {
+              $filter: {
+                input: "$timer",
+                as: "item",
+                cond: {
+                  $and: [
+                    {
+                      $gte: ["$$item.date", startDate],
+                    },
+                    {
+                      $lt: ["$$item.date", endDate],
+                    },
+                  ],
+                },
               },
             },
+            _id: 0,
           },
-          _id: 0,
         },
-      }
-    );
-    res.status(200).json({ success: true, data: studySessions });
+      ])
+      .forEach(function (doc) {
+        // will return only one doc at max;
+        result = doc;
+      });
+    res.status(200).json({ success: true, data: result });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ success: false, data: error });
   }
 });
