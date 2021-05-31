@@ -27,11 +27,10 @@ handler.get(async (req, res) => {
               },
             },
           },
+          _id: 0,
         },
-        _id: 0,
       }
     );
-
     res.status(200).json({ success: true, data: studySessions });
   } catch (error) {
     res.status(400).json({ success: false, data: error });
