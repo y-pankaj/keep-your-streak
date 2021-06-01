@@ -17,7 +17,7 @@ handler.get(async (req, res) => {
     if (todoList === null) {
       const result = await req.db
         .collection("CalendarRecord")
-        .insertOne({ email: session.user.email, todoList: [] });
+        .insertOne({ email: session.user.email, lists: [], timer: [] });
 
       res.status(200).json({ success: true, data: result.ops[0] });
     } else {
