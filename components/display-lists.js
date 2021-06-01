@@ -1,7 +1,12 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
-export default function DisplayLists({ lists, setLists }) {
+export default function DisplayLists({
+  lists,
+  setLists,
+  currentList,
+  setCurrentList,
+}) {
   const listTitleRef = useRef("");
   function addNewList(e) {
     e.preventDefault();
@@ -35,6 +40,15 @@ export default function DisplayLists({ lists, setLists }) {
   function handleValueChange(e) {
     listTitleRef.current = e.target.value;
   }
+
+  function handleListClick(listId) {
+    for (let i = 0; i < lists.length; i++) {
+      if (lists[i].id == listId) {
+        setCurrentList(lists[i]);
+        return;
+      }
+    }
+  }
   return (
     <div>
       <div>
@@ -45,7 +59,7 @@ export default function DisplayLists({ lists, setLists }) {
         </div>
         <div className="flex flex-col px-4 py-2 text-lg">
           {lists.map((list, key) => (
-            <span key={list.id}>
+            <span onClick={() => handleListClick(list.id)} key={list.id}>
               {key + 1}. {list.title}
             </span>
           ))}
@@ -57,6 +71,7 @@ export default function DisplayLists({ lists, setLists }) {
           onKeyUp={handleValueChange}
           type="text"
           id="inputListName"
+          placeholder="Add new list"
         />
         <button
           className="flex bg-purple-400 rounded-md p-1"
