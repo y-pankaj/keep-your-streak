@@ -2,8 +2,16 @@ import React from "react";
 import Todo from "./todo/todo";
 import DateStats from "./date-stats";
 import PropTypes from "prop-types";
+import DisplayLists from "./display-lists";
 
-export default function DateInfo({ date, timerData, todoList, setTodoList }) {
+export default function DateInfo({
+  date,
+  timerData,
+  todoList,
+  setTodoList,
+  lists,
+  setLists,
+}) {
   const displayDate =
     date.getDate() +
     " " +
@@ -52,6 +60,7 @@ export default function DateInfo({ date, timerData, todoList, setTodoList }) {
       <div>
         <DateStats timerData={timerData} date={date} />
       </div>
+      <DisplayLists lists={lists} setLists={setLists} />
       {/* <div>
         <Todo todoList={todoList} setTodoList={setTodoList} />
       </div> */}
@@ -64,4 +73,6 @@ DateInfo.propTypes = {
   timerData: PropTypes.object,
   todoList: PropTypes.array,
   setTodoList: PropTypes.any,
+  lists: PropTypes.array,
+  setLists: PropTypes.any,
 };

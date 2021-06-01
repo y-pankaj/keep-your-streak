@@ -28,7 +28,7 @@ export default function DateStats({ date, timerData }) {
   }
   return (
     <div>
-      <div className="flex flex-row justify-around py-2">
+      <div className="flex flex-row justify-around py-2 text-lg">
         <span>Total time: {currentStats.time}</span>
         {/* <span>No. of sessions: {currentStats.sessions}</span> */}
       </div>
