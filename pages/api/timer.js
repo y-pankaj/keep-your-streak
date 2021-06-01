@@ -14,8 +14,6 @@ handler.get(async (req, res) => {
     const end = Number(req.query.end);
     const startDate = new Date(start).toISOString();
     const endDate = new Date(end).toISOString();
-    console.log(startDate);
-    console.log(endDate);
     var result = { time: [] };
     await req.db
       .collection("CalendarRecord")
@@ -51,7 +49,6 @@ handler.get(async (req, res) => {
       });
     res.status(200).json({ success: true, data: result });
   } catch (error) {
-    console.log(error);
     res.status(400).json({ success: false, data: error });
   }
 });
