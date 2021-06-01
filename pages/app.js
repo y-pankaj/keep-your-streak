@@ -8,15 +8,16 @@ export default function App() {
   const [date, setDate] = useState(new Date());
   const [todoList, setTodoList] = useState([]);
   const [timerData, setTimerData] = useState({});
+  const [lists, setLists] = useState([]);
 
   useEffect(() => {
-    fetch("/api/todo", {
+    fetch("/api/lists", {
       method: "GET",
     })
       .then((response) => response.json())
       .then((response) => {
         if (response.data) {
-          setTodoList(response.data.todoList);
+          setLists(response.data.lists);
         }
       });
   }, []);
@@ -109,6 +110,8 @@ export default function App() {
             todoList={todoList}
             setTodoList={setTodoList}
             timerData={timerData}
+            lists={lists}
+            setLists={setLists}
           />
         </div>
       </div>
