@@ -1,20 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function TodoDisplayField({ task }) {
-  // function deleteTodo() {
-  //   setTodoList(
-  //     todoList.filter((currentTodo) => currentTodo.createdAt !== todo.createdAt)
-  //   );
-  //   const body = JSON.stringify({ createdAt: todo.createdAt });
-  //   const result = fetch("/api/todo", {
-  //     method: "DELETE",
-  //     body: body,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((rejected) => console.log(rejected));
-  // }
+export default function TodoDisplayField({
+  task,
+  currentList,
+  setCurrentList,
+}) {
+  function deleteTodo() {
+    setCurrentList((currentList) => {
+      const updatedCurrentList = { ...currentList };
+      updatedCurrentList.tasks = updatedCurrentList.tasks.filter(
+        (thisTask) => thisTask.createdAt !== task.createdAt
+      );
+      return updatedCurrentList;
+    });
+    const body = JSON.stringify({
+      listId: currentList.id,
+      createdAt: task.createdAt,
+    });
+    fetch("/api/tasks", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((rejected) => console.log(rejected));
+  }
 
   // change the done property of the todo
   // function handleCheckbox() {
@@ -71,7 +85,7 @@ export default function TodoDisplayField({ task }) {
       </div>
       <button
         className="w-6 h-6 hover:bg-gray-300 rounded-full"
-        // onClick={deleteTodo}
+        onClick={deleteTodo}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,4 +108,6 @@ export default function TodoDisplayField({ task }) {
 
 TodoDisplayField.propTypes = {
   task: PropTypes.object,
+  currentList: PropTypes.object,
+  setCurrentList: PropTypes.func,
 };
