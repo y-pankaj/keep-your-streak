@@ -1,76 +1,77 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export default function TodoDisplayField({ todo, todoList, setTodoList }) {
-  function deleteTodo() {
-    setTodoList(
-      todoList.filter((currentTodo) => currentTodo.createdAt !== todo.createdAt)
-    );
-    const body = JSON.stringify({ createdAt: todo.createdAt });
-    const result = fetch("/api/todo", {
-      method: "DELETE",
-      body: body,
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((rejected) => console.log(rejected));
-  }
+export default function TodoDisplayField({ task }) {
+  // function deleteTodo() {
+  //   setTodoList(
+  //     todoList.filter((currentTodo) => currentTodo.createdAt !== todo.createdAt)
+  //   );
+  //   const body = JSON.stringify({ createdAt: todo.createdAt });
+  //   const result = fetch("/api/todo", {
+  //     method: "DELETE",
+  //     body: body,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .catch((rejected) => console.log(rejected));
+  // }
 
   // change the done property of the todo
-  function handleCheckbox() {
-    let updatedDone;
-    let updatedTodoList = [...todoList];
-    for (var i = 0; i < todoList.length; i++) {
-      if (updatedTodoList[i].createdAt == todo.createdAt) {
-        updatedTodoList[i].done = !updatedTodoList[i].done;
-        updatedDone = updatedTodoList[i].done;
-        break;
-      }
-    }
-    setTodoList(updatedTodoList);
+  // function handleCheckbox() {
+  //   let updatedDone;
+  //   let updatedTodoList = [...todoList];
+  //   for (var i = 0; i < todoList.length; i++) {
+  //     if (updatedTodoList[i].createdAt == todo.createdAt) {
+  //       updatedTodoList[i].done = !updatedTodoList[i].done;
+  //       updatedDone = updatedTodoList[i].done;
+  //       break;
+  //     }
+  //   }
+  //   setTodoList(updatedTodoList);
 
-    const body = JSON.stringify({
-      createdAt: todo.createdAt,
-      done: updatedDone,
-    });
-    const result = fetch("/api/todo", {
-      method: "PUT",
-      body: body,
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((rejected) => rejected);
-  }
+  //   const body = JSON.stringify({
+  //     createdAt: todo.createdAt,
+  //     done: updatedDone,
+  //   });
+  //   const result = fetch("/api/todo", {
+  //     method: "PUT",
+  //     body: body,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .catch((rejected) => rejected);
+  // }
 
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
       <div className="space-x-4 flex items-start">
         <div className="pt-1">
-          {todo.done ? (
+          {task.done ? (
             <input
               type="checkbox"
-              onClick={handleCheckbox}
+              // onClick={handleCheckbox}
               className="h-4 w-4"
               defaultChecked
             />
           ) : (
             <input
               type="checkbox"
-              onClick={handleCheckbox}
+              // onClick={handleCheckbox}
               className="h-4 w-4"
             />
           )}
         </div>
         <div>
           <span
-            className={`text-lg break-words ${todo.done ? "line-through" : ""}`}
+            className={`text-lg break-words ${task.done ? "line-through" : ""}`}
           >
-            {todo.task}
+            {task.task}
           </span>
         </div>
       </div>
       <button
         className="w-6 h-6 hover:bg-gray-300 rounded-full"
-        onClick={deleteTodo}
+        // onClick={deleteTodo}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -90,3 +91,7 @@ export default function TodoDisplayField({ todo, todoList, setTodoList }) {
     </div>
   );
 }
+
+TodoDisplayField.propTypes = {
+  task: PropTypes.object,
+};
