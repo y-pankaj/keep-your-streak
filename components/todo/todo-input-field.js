@@ -1,28 +1,36 @@
-import React from "react";
-export default function TodoInputField({ todoList, setTodoList }) {
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
+export default function TodoInputField({ setCurrentList }) {
+  const listIdRef = useRef();
   function handleEnterKey(e) {
     var keyCode = e.code || e.key;
     if (keyCode == "Enter") {
+      if (!e.target.value) {
+        return;
+      }
       const createdAt = new Date().getTime();
-      const todo = {
-        title: "Some really important work to finish",
-      };
-      const newTodo = {
+      const newTask = {
         createdAt: createdAt,
         task: e.target.value,
         done: false,
       };
-      setTodoList([...todoList, newTodo]);
+      setCurrentList((currentList) => {
+        listIdRef.current = currentList.id;
+        const updatedCurrentList = currentList;
+        updatedCurrentList.tasks = [...updatedCurrentList.tasks, newTask];
+        console.log("listId", listIdRef.current);
+        fetch("/api/tasks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ listId: listIdRef.current, ...newTask }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+        return { ...updatedCurrentList };
+      });
       e.target.value = "";
-      const res = fetch("/api/todo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newTodo),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
     }
   }
 
@@ -53,3 +61,7 @@ export default function TodoInputField({ todoList, setTodoList }) {
     </div>
   );
 }
+
+TodoInputField.propTypes = {
+  setCurrentList: PropTypes.func,
+};
