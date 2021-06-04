@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import TodoDisplayField from "./todo-display-field";
 import TodoInputField from "./todo-input-field";
 
-export default function Todo({ todoList, setTodoList }) {
-  // write logic for getting date from Mongo using Date prop
-
+export default function Todo({ currentList, setCurrentList }) {
   return (
     <div>
-      {todoList.map((todo) => (
-        <TodoDisplayField
-          key={todo.createdAt}
-          todo={todo}
-          setTodoList={setTodoList}
-          todoList={todoList}
-        />
+      {currentList.tasks.map((task) => (
+        <TodoDisplayField key={task.createdAt} task={task} />
       ))}
-      <TodoInputField todoList={todoList} setTodoList={setTodoList} />
+      <TodoInputField setCurrentList={setCurrentList} />
     </div>
   );
 }
+
+Todo.propTypes = {
+  currentList: PropTypes.object,
+  setCurrentList: PropTypes.func,
+};

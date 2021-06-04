@@ -1,12 +1,7 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
-export default function DisplayLists({
-  lists,
-  setLists,
-  currentList,
-  setCurrentList,
-}) {
+export default function DisplayLists({ lists, setLists, setCurrentList }) {
   const listTitleRef = useRef("");
   function addNewList(e) {
     e.preventDefault();
@@ -45,7 +40,7 @@ export default function DisplayLists({
     for (let i = 0; i < lists.length; i++) {
       if (lists[i].id == listId) {
         setCurrentList(lists[i]);
-        return;
+        break;
       }
     }
   }
@@ -102,5 +97,6 @@ export default function DisplayLists({
 
 DisplayLists.propTypes = {
   lists: PropTypes.array,
-  setLists: PropTypes.any,
+  setLists: PropTypes.func,
+  setCurrentList: PropTypes.func,
 };
