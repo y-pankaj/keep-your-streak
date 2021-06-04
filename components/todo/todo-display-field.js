@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
 export default function TodoDisplayField({
@@ -6,6 +6,7 @@ export default function TodoDisplayField({
   currentList,
   setCurrentList,
 }) {
+  const listIdRef = useRef(currentList.id);
   function deleteTodo() {
     setCurrentList((currentList) => {
       const updatedCurrentList = { ...currentList };
@@ -31,30 +32,41 @@ export default function TodoDisplayField({
   }
 
   // change the done property of the todo
-  // function handleCheckbox() {
-  //   let updatedDone;
-  //   let updatedTodoList = [...todoList];
-  //   for (var i = 0; i < todoList.length; i++) {
-  //     if (updatedTodoList[i].createdAt == todo.createdAt) {
-  //       updatedTodoList[i].done = !updatedTodoList[i].done;
-  //       updatedDone = updatedTodoList[i].done;
-  //       break;
-  //     }
-  //   }
-  //   setTodoList(updatedTodoList);
+  function handleCheckbox() {
+    let updatedDoneValue;
+    let updatedTaskList = [...currentList.tasks];
+    for (var i = 0; i < updatedTaskList.length; i++) {
+      if (updatedTaskList[i].createdAt == task.createdAt) {
+        updatedTaskList[i].done = !updatedTaskList[i].done;
+        updatedDoneValue = updatedTaskList[i].done;
+        break;
+      }
+    }
+    setCurrentList((currentList) => {
+      listIdRef.current = currentList.id;
+      const updatedCurrentList = {
+        ...currentList,
+        tasks: updatedTaskList,
+      };
+      return updatedCurrentList;
+    });
 
-  //   const body = JSON.stringify({
-  //     createdAt: todo.createdAt,
-  //     done: updatedDone,
-  //   });
-  //   const result = fetch("/api/todo", {
-  //     method: "PUT",
-  //     body: body,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((rejected) => rejected);
-  // }
+    const body = JSON.stringify({
+      listId: listIdRef.current,
+      createdAt: task.createdAt,
+      done: updatedDoneValue,
+    });
+    fetch("/api/tasks", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((rejected) => rejected);
+  }
 
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
@@ -63,14 +75,14 @@ export default function TodoDisplayField({
           {task.done ? (
             <input
               type="checkbox"
-              // onClick={handleCheckbox}
+              onClick={handleCheckbox}
               className="h-4 w-4"
               defaultChecked
             />
           ) : (
             <input
               type="checkbox"
-              // onClick={handleCheckbox}
+              onClick={handleCheckbox}
               className="h-4 w-4"
             />
           )}
