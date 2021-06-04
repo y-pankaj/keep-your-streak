@@ -7,7 +7,12 @@ export default function Todo({ currentList, setCurrentList }) {
   return (
     <div>
       {currentList.tasks.map((task) => (
-        <TodoDisplayField key={task.createdAt} task={task} />
+        <TodoDisplayField
+          key={task.createdAt}
+          task={task}
+          currentList={currentList}
+          setCurrentList={setCurrentList}
+        />
       ))}
       <TodoInputField setCurrentList={setCurrentList} />
     </div>
