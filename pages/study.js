@@ -5,7 +5,7 @@ import Navbar from "../components/navbar";
 import Spotify from "../components/spotify";
 
 export default function Study() {
-  const [time, setTime] = useState(10);
+  const [time, setTime] = useState(25 * 60);
   const [running, setRunning] = useState(false);
   const maxTimeRef = useRef(time);
 
