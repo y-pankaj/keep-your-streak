@@ -48,13 +48,13 @@ export default function Navbar() {
                   href="/app"
                   className="px-2 py-5 text-gray-700 hover:text-gray-900"
                 >
-                  Todo
+                  Lists
                 </a>
                 <a
                   href="/study"
                   className="px-2 py-5 text-gray-700 hover:text-gray-900"
                 >
-                  Study
+                  Grind
                 </a>
               </div>
             )}
@@ -146,12 +146,12 @@ export default function Navbar() {
           <div className="flex flex-col">
             {session && (
               <a href="/app" className="block py-2 px-2 border-b-2">
-                Todo
+                Lists
               </a>
             )}
             {session && (
               <a href="/study" className="block py-2 px-2 border-b-2">
-                Study
+                Grind
               </a>
             )}
             {!session ? (
