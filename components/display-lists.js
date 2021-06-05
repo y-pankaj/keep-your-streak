@@ -1,7 +1,12 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
-export default function DisplayLists({ lists, setLists, setCurrentList }) {
+export default function DisplayLists({
+  lists,
+  setLists,
+  setCurrentList,
+  displayListIdRef,
+}) {
   const listTitleRef = useRef("");
   function addNewList(e) {
     e.preventDefault();
@@ -37,6 +42,7 @@ export default function DisplayLists({ lists, setLists, setCurrentList }) {
   }
 
   function handleListClick(listId) {
+    displayListIdRef.current = listId;
     for (let i = 0; i < lists.length; i++) {
       if (lists[i].id == listId) {
         setCurrentList(lists[i]);
@@ -103,4 +109,5 @@ DisplayLists.propTypes = {
   lists: PropTypes.array,
   setLists: PropTypes.func,
   setCurrentList: PropTypes.func,
+  displayListIdRef: PropTypes.object,
 };

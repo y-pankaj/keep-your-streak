@@ -1,25 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Todo from "./todo/todo";
 import DateStats from "./date-stats";
 import PropTypes from "prop-types";
 import DisplayLists from "./display-lists";
+import Swal from "sweetalert2";
 
-export default function DateInfo({
-  date,
-  timerData,
-  todoList,
-  setTodoList,
-  lists,
-  setLists,
-}) {
-  const [displayListId, setDisplayListId] = useState(0);
+export default function DateInfo({ date, timerData, lists, setLists }) {
   const [currentList, setCurrentList] = useState(null);
+  const displayListIdRef = useRef();
   const displayDate =
     date.getDate() +
     " " +
     date.toLocaleString("default", { month: "short" }) +
     " '" +
     date.getFullYear().toString().substr(-2);
+
+  function deleteList() {
+    Swal.fire({
+      title: "Delete the list?",
+      // text: "You won't be able to revert this!",
+      // icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setCurrentList(null);
+        setLists((lists) => {
+          const updatedList = lists.filter(
+            (list) => list.id != displayListIdRef.current
+          );
+          return [...updatedList];
+        });
+        const body = JSON.stringify({ listId: displayListIdRef.current });
+        fetch("/api/lists", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: body,
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((rejected) => console.log(rejected));
+        displayListIdRef.current = null;
+      }
+    });
+  }
 
   return (
     <div className="w-10/12 sm:w-8/12 lg:w-7/12 xl:w-6/12 m-auto bg-yellow-500 rounded-md z-10">
@@ -54,6 +82,7 @@ export default function DateInfo({
         </div>
         {currentList && (
           <svg
+            onClick={deleteList}
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mr-3"
             fill="none"
@@ -85,6 +114,7 @@ export default function DateInfo({
             setLists={setLists}
             currentList={currentList}
             setCurrentList={setCurrentList}
+            displayListIdRef={displayListIdRef}
           />
         )}
       </div>

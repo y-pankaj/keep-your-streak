@@ -44,4 +44,20 @@ handler.post(async (req, res) => {
   }
 });
 
+handler.delete(async (req, res) => {
+  try {
+    const session = await getSession({ req });
+    const email = session.user.email;
+    const body = req.body;
+    const listId = body.listId;
+    await req.db
+      .collection("CalendarRecord")
+      .updateOne({ email: email }, { $pull: { lists: { id: listId } } });
+    res.status(201).json({ success: true, data: "success" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, data: error });
+  }
+});
+
 export default handler;
