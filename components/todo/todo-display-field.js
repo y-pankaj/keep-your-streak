@@ -9,10 +9,10 @@ export default function TodoDisplayField({
   const listIdRef = useRef(currentList.id);
   function deleteTodo() {
     setCurrentList((currentList) => {
-      const updatedCurrentList = { ...currentList };
-      updatedCurrentList.tasks = updatedCurrentList.tasks.filter(
+      currentList.tasks = currentList.tasks.filter(
         (thisTask) => thisTask.createdAt !== task.createdAt
       );
+      const updatedCurrentList = { ...currentList };
       return updatedCurrentList;
     });
     const body = JSON.stringify({
