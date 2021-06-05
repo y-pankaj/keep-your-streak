@@ -54,7 +54,11 @@ export default function DisplayLists({ lists, setLists, setCurrentList }) {
         </div>
         <div className="flex flex-col px-4 py-2 text-lg">
           {lists.map((list, key) => (
-            <span onClick={() => handleListClick(list.id)} key={list.id}>
+            <span
+              className="cursor-pointer"
+              onClick={() => handleListClick(list.id)}
+              key={list.id}
+            >
               {key + 1}. {list.title}
             </span>
           ))}
