@@ -115,6 +115,7 @@ export default function DateInfo({ date, timerData, lists, setLists }) {
             currentList={currentList}
             setCurrentList={setCurrentList}
             displayListIdRef={displayListIdRef}
+            deleteList={deleteList}
           />
         )}
       </div>

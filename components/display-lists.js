@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 export default function DisplayLists({
   lists,
@@ -37,6 +38,38 @@ export default function DisplayLists({
     inputListName.value = "";
   }
 
+  function deleteList(listId) {
+    Swal.fire({
+      title: "Delete the list?",
+      // text: "You won't be able to revert this!",
+      // icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setCurrentList(null);
+        setLists((lists) => {
+          const updatedList = lists.filter((list) => list.id != listId);
+          return [...updatedList];
+        });
+        const body = JSON.stringify({ listId: listId });
+        fetch("/api/lists", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: body,
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((rejected) => console.log(rejected));
+        displayListIdRef.current = null;
+      }
+    });
+  }
+
   function handleValueChange(e) {
     listTitleRef.current = e.target.value;
   }
@@ -60,13 +93,31 @@ export default function DisplayLists({
         </div>
         <div className="flex flex-col px-4 py-2 text-lg">
           {lists.map((list, key) => (
-            <span
-              className="cursor-pointer"
-              onClick={() => handleListClick(list.id)}
-              key={list.id}
-            >
-              {key + 1}. {list.title}
-            </span>
+            <div className="flex justify-between" key={list.id}>
+              <span
+                className="cursor-pointer w-4/5"
+                onClick={() => handleListClick(list.id)}
+              >
+                {key + 1}. {list.title}
+              </span>
+              <button>
+                <svg
+                  onClick={() => deleteList(list.id)}
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           ))}
         </div>
       </div>
