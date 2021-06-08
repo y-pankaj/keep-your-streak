@@ -123,7 +123,7 @@ export default function DisplayLists({
       </div>
       <div className="flex space-x-1 mx-1 p-2">
         <input
-          className="px-2"
+          className="px-2 w-5/6"
           onKeyUp={handleValueChange}
           type="text"
           id="inputListName"
