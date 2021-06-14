@@ -28,42 +28,38 @@ export default function DailyListDisplayField({ date, task, setDailyList }) {
       .catch((rejected) => console.log(rejected));
   }
 
-  // // change the done property of the todo
-  // function handleCheckbox() {
-  //   let updatedDoneValue;
-  //   let updatedTaskList = [...currentList.tasks];
-  //   for (var i = 0; i < updatedTaskList.length; i++) {
-  //     if (updatedTaskList[i].createdAt == task.createdAt) {
-  //       updatedTaskList[i].done = !updatedTaskList[i].done;
-  //       updatedDoneValue = updatedTaskList[i].done;
-  //       break;
-  //     }
-  //   }
-  //   setCurrentList((currentList) => {
-  //     listIdRef.current = currentList.id;
-  //     const updatedCurrentList = {
-  //       ...currentList,
-  //       tasks: updatedTaskList,
-  //     };
-  //     return updatedCurrentList;
-  //   });
+  // change the done property of the todo
+  function handleCheckbox() {
+    const thisDate = date.getDate();
+    let updatedDoneValue;
+    setDailyList((dailyList) => {
+      const updatedDailyList = JSON.parse(JSON.stringify(dailyList));
+      for (var i = 0; i < updatedDailyList[thisDate].length; i++) {
+        if (updatedDailyList[thisDate][i].createdAt == task.createdAt) {
+          updatedDailyList[thisDate][i].done =
+            !updatedDailyList[thisDate][i].done;
+          updatedDoneValue = updatedDailyList[thisDate][i].done;
+          break;
+        }
+      }
+      return updatedDailyList;
+    });
 
-  //   const body = JSON.stringify({
-  //     listId: listIdRef.current,
-  //     createdAt: task.createdAt,
-  //     done: updatedDoneValue,
-  //   });
-  //   fetch("/api/tasks", {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: body,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((rejected) => rejected);
-  // }
+    const body = JSON.stringify({
+      createdAt: task.createdAt,
+      done: updatedDoneValue,
+    });
+    fetch("/api/dailylist", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((rejected) => rejected);
+  }
 
   return (
     <div className="flex justify-between py-2 px-4 border-t-2 border-b-2 border-transparent hover:border-yellow-800">
@@ -72,14 +68,14 @@ export default function DailyListDisplayField({ date, task, setDailyList }) {
           {task.done ? (
             <input
               type="checkbox"
-              // onClick={handleCheckbox}
+              onClick={handleCheckbox}
               className="h-4 w-4"
               defaultChecked
             />
           ) : (
             <input
               type="checkbox"
-              // onClick={handleCheckbox}
+              onClick={handleCheckbox}
               className="h-4 w-4"
             />
           )}
