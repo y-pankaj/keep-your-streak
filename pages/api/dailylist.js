@@ -67,4 +67,23 @@ handler.post(async (req, res) => {
   }
 });
 
+handler.delete(async (req, res) => {
+  try {
+    const session = await getSession({ req });
+    const email = session.user.email;
+    const body = req.body;
+    const createdAt = body.createdAt;
+    await req.db
+      .collection("CalendarRecord")
+      .updateOne(
+        { email: email },
+        { $pull: { dailyList: { createdAt: createdAt } } }
+      );
+
+    res.status(200).json({ success: true, data: "success" });
+  } catch (error) {
+    res.status(400).json({ success: false, data: error });
+  }
+});
+
 export default handler;
