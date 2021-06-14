@@ -9,6 +9,46 @@ export default function App() {
   const [todoList, setTodoList] = useState([]);
   const [timerData, setTimerData] = useState({});
   const [lists, setLists] = useState([]);
+  const [dailyList, setDailyList] = useState({});
+
+  useEffect(() => {
+    const todayDate = new Date();
+    const startDate = new Date(
+      todayDate.getFullYear(),
+      todayDate.getMonth(),
+      1
+    ).setHours(0, 0, 0, 0);
+
+    const endDate = new Date(
+      todayDate.getFullYear(),
+      todayDate.getMonth() + 1,
+      0
+    ).setHours(23, 59, 59, 999);
+
+    fetch("/api/dailylist?" + "start=" + startDate + "&" + "end=" + endDate, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        // console.log("dailyList", response.data);
+        if (response.data) {
+          const responseData = response.data.dailyList;
+          const dayWiseDailyList = {};
+          for (let i = 0; i < responseData.length; i++) {
+            const data = responseData[i];
+            const date = new Date(data.createdAt).getDate();
+            if (date in dayWiseDailyList) {
+              dayWiseDailyList[date].push(data);
+            } else {
+              dayWiseDailyList[date] = [data];
+            }
+          }
+          console.log(dayWiseDailyList);
+          setDailyList(dayWiseDailyList);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     fetch("/api/lists", {
@@ -112,6 +152,8 @@ export default function App() {
             timerData={timerData}
             lists={lists}
             setLists={setLists}
+            dailyList={dailyList}
+            setDailyList={setDailyList}
           />
         </div>
       </div>
