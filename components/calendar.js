@@ -2,7 +2,12 @@ import React from "react";
 import CalendarDate from "./calendar-date";
 import PropTypes from "prop-types";
 
-export default function Calendar({ setDate, toggleTodo }) {
+export default function Calendar({
+  setDate,
+  toggleTodo,
+  dailyList,
+  timerData,
+}) {
   var date = new Date();
   var todayDate = date.getDate();
   // console.log(date.getFullYear());
@@ -33,14 +38,17 @@ export default function Calendar({ setDate, toggleTodo }) {
   for (var i = 0; i < totalDivsInCalendar; i++) {
     var calendarRow = [];
     for (var j = 0; j < 7; j++) {
-      var key = 7 * i + j + 1;
+      const key = 7 * i + j + 1;
+      const dateForCalendarBox = getDateForCalendar(7 * i + j + 1);
       calendarRow.push(
         <CalendarDate
           key={key}
           setDate={setDate}
-          date={getDateForCalendar(7 * i + j + 1)}
+          dateForCalendarBox={dateForCalendarBox}
           today={todayDate}
           toggleTodo={toggleTodo}
+          dailyList={dailyList}
+          timerData={timerData}
         />
       );
     }
@@ -57,4 +65,6 @@ export default function Calendar({ setDate, toggleTodo }) {
 Calendar.propTypes = {
   setDate: PropTypes.func,
   toggleTodo: PropTypes.func,
+  dailyList: PropTypes.object,
+  timerData: PropTypes.object,
 };
