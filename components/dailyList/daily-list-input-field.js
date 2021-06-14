@@ -8,7 +8,10 @@ export default function DailyListInputField({ date, setDailyList }) {
       if (!e.target.value) {
         return;
       }
-      const createdAt = new Date().getTime();
+      const thisDate = date.getDate();
+      const nowDate = new Date();
+      nowDate.setDate(thisDate);
+      const createdAt = nowDate.getTime();
       const newTask = {
         createdAt: createdAt,
         task: e.target.value,
@@ -16,7 +19,9 @@ export default function DailyListInputField({ date, setDailyList }) {
       };
       setDailyList((dailyList) => {
         const updateDailyList = JSON.parse(JSON.stringify(dailyList));
-        var thisDate = date.getDate();
+        if (!(thisDate in updateDailyList)) {
+          updateDailyList[thisDate] = [];
+        }
         updateDailyList[thisDate].push(newTask);
         return updateDailyList;
       });
