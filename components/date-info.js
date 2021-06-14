@@ -4,8 +4,16 @@ import DateStats from "./date-stats";
 import PropTypes from "prop-types";
 import DisplayLists from "./display-lists";
 import Swal from "sweetalert2";
+import DailyList from "./dailyList/dailyList";
 
-export default function DateInfo({ date, timerData, lists, setLists }) {
+export default function DateInfo({
+  date,
+  timerData,
+  lists,
+  setLists,
+  dailyList,
+  setDailyList,
+}) {
   const [currentList, setCurrentList] = useState(null);
   const displayListIdRef = useRef();
   const displayDate =
@@ -108,6 +116,14 @@ export default function DateInfo({ date, timerData, lists, setLists }) {
         )}
       </div>
       <div>
+        <h2 className="text-center font-bold text-xl">Daily List</h2>
+        <DailyList
+          date={date}
+          dailyList={dailyList}
+          setDailyList={setDailyList}
+        />
+      </div>
+      <div>
         {!currentList && (
           <DisplayLists
             lists={lists}
@@ -119,10 +135,6 @@ export default function DateInfo({ date, timerData, lists, setLists }) {
           />
         )}
       </div>
-
-      {/* <div>
-        <Todo todoList={todoList} setTodoList={setTodoList} />
-      </div> */}
     </div>
   );
 }
@@ -134,4 +146,6 @@ DateInfo.propTypes = {
   setTodoList: PropTypes.any,
   lists: PropTypes.array,
   setLists: PropTypes.any,
+  dailyList: PropTypes.object,
+  setDailyList: PropTypes.func,
 };
