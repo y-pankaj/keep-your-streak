@@ -1,4 +1,6 @@
+import React from "react";
 import CalendarDate from "./calendar-date";
+import PropTypes from "prop-types";
 
 export default function Calendar({ setDate, toggleTodo }) {
   var date = new Date();
@@ -51,3 +53,8 @@ export default function Calendar({ setDate, toggleTodo }) {
 
   return <div>{calendar}</div>;
 }
+
+Calendar.propTypes = {
+  setDate: PropTypes.func,
+  toggleTodo: PropTypes.func,
+};

@@ -30,6 +30,6 @@ export default function CalendarDate({ setDate, toggleTodo, today, date }) {
 CalendarDate.propTypes = {
   setDate: PropTypes.func,
   toggleTodo: PropTypes.func,
-  today: PropTypes.any,
-  date: PropTypes.any,
+  today: PropTypes.number,
+  date: PropTypes.number,
 };
