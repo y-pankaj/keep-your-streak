@@ -115,14 +115,19 @@ export default function DateInfo({
           </div>
         )}
       </div>
-      <div>
-        <h2 className="text-center font-bold text-xl">Daily List</h2>
-        <DailyList
-          date={date}
-          dailyList={dailyList}
-          setDailyList={setDailyList}
-        />
-      </div>
+      {!currentList && (
+        <div>
+          <h2 className="text-center font-bold text-xl">
+            Daily List for {displayDate}
+          </h2>
+          <DailyList
+            date={date}
+            dailyList={dailyList}
+            setDailyList={setDailyList}
+          />
+        </div>
+      )}
+
       <div>
         {!currentList && (
           <DisplayLists
